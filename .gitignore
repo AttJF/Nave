@@ -1,0 +1,12 @@
+# Godot
+.import/
+.export/
+*.import
+*.translation
+*.tscn.converted
+*.escn.converted
+
+# Sistema e editor
+.vscode/
+.DS_Store
+Thumbs.db

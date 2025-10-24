@@ -1,0 +1,14 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1761343860
+icon.svg::CompressedTexture2D/CompressedTexture2D::5561071612743663453::1761328348::1761328358::1::::<><><>0<>0<>0adec24a7a06f83a02fd901d7a573cd8<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+::res://Doc/::1761342375
+::res://scene/::1761343835
+bala.tscn::PackedScene::2692677377652840114::1761343835::0::1::::<><><>0<>0<><>::uid://cxt7xjjk6nomi::::res://script/bala.gd<>uid://bjmunhadu400t::::res://sprite/attack_sprite_single.png
+jogador.tscn::PackedScene::7817715772785771629::1761343008::0::1::::<><><>0<>0<><>::uid://dkrhfu3gqtgf4::::res://script/jogador.gd<>uid://bemmadqdq2vmo::::res://scene/bala.tscn<>uid://fat7qnhg7g1d::::res://sprite/av3.png
+main.tscn::PackedScene::1680127951884522336::1761343008::0::1::::<><><>0<>0<><>::uid://djm7vv50dn8yb::::res://scene/jogador.tscn
+::res://script/::1761343001
+bala.gd::GDScript::6428392452526121392::1761341940::0::1::::<>Area2D<><>0<>0<><>::
+jogador.gd::GDScript::7896679951213807287::1761343001::0::1::::<>CharacterBody2D<><>0<>0<><>::
+::res://sprite/::1761332134
+attack_sprite_single.png::CompressedTexture2D/CompressedTexture2D::3044130732487856337::1761330913::1761330916::1::::<><><>0<>0<>1e550ec224e1fac74c961fa786eef3c7<>res://.godot/imported/attack_sprite_single.png-4c6e097e65b64e777cd75ebd7a9cd59f.ctex::
+av3.png::CompressedTexture2D/CompressedTexture2D::352155847241072655::1761332133::1761332134::1::::<><><>0<>0<>8eabb6a2c9f1b68ec663aba08b661fbc<>res://.godot/imported/av3.png-f6f383e552a2feaa3dd72d9c12bfa29a.ctex::
