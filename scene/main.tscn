@@ -1,9 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://x64px7ovelae"]
+[gd_scene load_steps=5 format=3 uid="uid://x64px7ovelae"]
 
 [ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="1_itxqv"]
+[ext_resource type="Script" uid="uid://dxw7hfqkfege1" path="res://scene/main.gd" id="1_v0l8b"]
+[ext_resource type="PackedScene" uid="uid://cgw1ur5lo2fjx" path="res://scene/inimigo.tscn" id="3_wp4xf"]
+[ext_resource type="PackedScene" uid="uid://dmi8dh0lc0t3k" path="res://scene/parallax_background.tscn" id="4_brvut"]
 
 [node name="main" type="Node2D"]
-position = Vector2(4, 7)
+position = Vector2(929, 99)
+script = ExtResource("1_v0l8b")
+inimigo_scene = ExtResource("3_wp4xf")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_itxqv")]
-position = Vector2(153, 271)
+[node name="Player" parent="." instance=ExtResource("1_itxqv")]
+position = Vector2(-930, -98)
+
+[node name="inimigo" parent="." instance=ExtResource("3_wp4xf")]
+position = Vector2(0, -4)
+player_path = NodePath("../Player")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("4_brvut")]
