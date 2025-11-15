@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://w6utl5cefu11"]
+
+[ext_resource type="Script" uid="uid://bojlx64ip5bq2" path="res://script/level_1.gd" id="1_xesoj"]
+[ext_resource type="PackedScene" uid="uid://cgw1ur5lo2fjx" path="res://scene/inimigo.tscn" id="2_53ndp"]
+[ext_resource type="PackedScene" uid="uid://dmi8dh0lc0t3k" path="res://scene/parallax_background.tscn" id="3_70cbr"]
+[ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="4_lsoxn"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_xesoj")
+inimigo_scene = ExtResource("2_53ndp")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_70cbr")]
+
+[node name="Player" parent="." instance=ExtResource("4_lsoxn")]
+position = Vector2(-1101, 126)
+
+[node name="SpawnCluster" type="Node2D" parent="."]
+position = Vector2(0, 20)
+
+[node name="Spawn4" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1110, 556)
+
+[node name="Spawn3" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(910, 185)
+
+[node name="Spawn2" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1098, 311)
+
+[node name="Spawn1" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1102, 62)
+
+[node name="Spawn5" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(919, 450)

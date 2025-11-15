@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var move_speed: float = 500.0
 @export var shoot_cooldown: float = 4.0 
 @export var bala_scene: PackedScene
+@export var powerup_scene: PackedScene
 @export var i_frame_time: float = 1.4
 @export var player_path: NodePath #onde esta o player
 @export var patrol_left_x: float = -100.0
@@ -18,14 +19,11 @@ extends CharacterBody2D
 @export var stuck_move_threshold: float = 2.0 # distancia minima para travamento
 @export var min_distance_from_player: float = 250.0 # distancia para evitar colisão com player
 
-
-
 enum State { IDLE, PATROL, ATTACK, RUNNING } #maquina de estado
-
 var state: State = State.PATROL #começa na patrulha
 var _cool: float = 0.0
 var is_invulnerable : bool = false
-var life: int = 10
+var life: int = 1
 var lifetotal: int =10 #controle para saber se tomou tiro 
 var _dir_x: int = 1
 var _player: Node2D = null
@@ -36,6 +34,7 @@ var _last_pos: Vector2 = Vector2.ZERO
 var _stuck_timer: float = 0.0
 var _run_target: Vector2 = Vector2.ZERO  # local para fugir quando tomar bala
 var _has_target: bool = false     
+signal died() #controle de waves
 
 func _ready() -> void:
 	if player_path != NodePath():
@@ -57,23 +56,19 @@ func _update_state() -> void: #tem que melhorar as maquinas de estado, esta meio
 	if _player == null:
 		state = State.PATROL
 		return
-
 	if is_invulnerable: #tomou tiro ele corre e entra no estado running
 		state = State.RUNNING
 		return
 	_run_target = Vector2.ZERO
 	var dist := global_position.distance_to(_player.global_position)
-
 	if life < lifetotal: #se tiver tomado tiro ja entra no estado atacando
 		state = State.ATTACK
-		
 	elif dist > detection_range:
 			state = State.PATROL
 	elif dist > attack_range:
 		state = State.IDLE
 	else:
 		state = State.ATTACK
-		
 	if state != prev_state: #para sortear novos pontos de fuga, preciso ressetar o run_target
 		match prev_state:
 			State.RUNNING:
@@ -94,11 +89,9 @@ func _process_state(delta: float) -> void:
 
 func _running_away() -> void:
 	var rect := get_viewport().get_visible_rect()
-
 	# escolhe ponto de fuga
 	if not _has_target:
 		_choose_run_target(rect)
-
 	# corre para o local
 	var to_target := _run_target - global_position
 	var dist := to_target.length()
@@ -107,14 +100,12 @@ func _running_away() -> void:
 		velocity = dir * move_speed
 	else:
 		velocity = Vector2.ZERO
-
 	move_and_slide()
 	
 func _patrol_move(delta: float) -> void:
 	velocity.x = _dir_x * move_speed
 	velocity.y = 0.0
 	move_and_slide()
-
 	if global_position.x <= patrol_left_x:
 		_dir_x = 1
 	elif global_position.x >= patrol_right_x:
@@ -132,26 +123,21 @@ func _chase_player(delta: float) -> void:
 		_stuck_timer = 0.0
 		_last_pos = global_position
 		return
-
 	# sortear alvo
 	if _spot_target == Vector2.ZERO or _spot_timer <= 0.0:
 		_pick_spot_to_attack()
-
 	var to_spot: Vector2 = _spot_target - global_position
 	var dist: float = to_spot.length()
-
 	if dist > spot_tolerance:
 		var dir: Vector2 = to_spot.normalized()
 		var desired_vel: Vector2 = dir * move_speed
 		velocity = desired_vel
-
 	else:
 		# chegou no ponto para
 		velocity = Vector2.ZERO
 		_spot_timer -= delta
 		_shoot(delta)
-
-	# ver se ta travando:
+	# ver se ta travando
 	var moved_dist: float = global_position.distance_to(_last_pos)
 	if moved_dist < stuck_move_threshold and dist > spot_tolerance * 2.0:
 		_stuck_timer += delta
@@ -160,9 +146,7 @@ func _chase_player(delta: float) -> void:
 	if _stuck_timer >= stuck_time:
 		_spot_target = Vector2.ZERO
 		_stuck_timer = 0.0
-
 	_last_pos = global_position
-
 	move_and_slide()
 
 
@@ -174,7 +158,6 @@ func _shoot(delta: float) -> void:
 		return
 	if _cool > 0.0:
 		return
-
 	var b := bala_scene.instantiate()#problema que eu estava tendo com a bala resolvido
 	var parent := get_parent()
 	parent.add_child(b)
@@ -194,7 +177,11 @@ func _got_hit(damage:int) -> void:
 
 func _death_has_come()->void:
 	queue_free()
-	#aqui vai implementar intanciar os power up
+	var p := powerup_scene.instantiate()
+	var parent := get_parent()
+	parent.add_child(p)
+	p.global_position = global_position
+	emit_signal("died") # controle de waves 
 
 func _start_i_frames(duration: float) -> void:
 	is_invulnerable = true
@@ -269,14 +256,12 @@ func _choose_run_target(rect: Rect2) -> void:
 func _pick_spot_to_attack() -> void: #é usado para mover o inimigo em uma posição ideal 
 	if _player == null:
 		return
-
 	var rect := get_viewport().get_visible_rect()
 	var player_pos := _player.global_position
 	# raio de tolerancia 
 	var inner_r: float = max(0.0, desired_distance - distance_tolerance)
 	var outer_r: float = desired_distance + distance_tolerance
 	var radius: float = randf_range(inner_r, outer_r)
-
 	var max_angle: float = deg_to_rad(60.0)  # tentando manter inimigo a direita e na frente do player para poder tomar tiro
 	var angle: float = randf_range(-max_angle, max_angle)
 	var dir: Vector2 = Vector2.RIGHT.rotated(angle).normalized()

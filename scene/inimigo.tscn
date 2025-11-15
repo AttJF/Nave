@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgw1ur5lo2fjx"]
+[gd_scene load_steps=6 format=3 uid="uid://cgw1ur5lo2fjx"]
 
 [ext_resource type="Script" uid="uid://cqfon34i5i7lt" path="res://script/inimigo.gd" id="1_030df"]
 [ext_resource type="Texture2D" uid="uid://clh3bi0otxqm4" path="res://icon.svg" id="2_0b8xr"]
 [ext_resource type="PackedScene" uid="uid://dm3jy3n6c4eol" path="res://scene/bala_e.tscn" id="2_ivxke"]
+[ext_resource type="PackedScene" uid="uid://dcr8ivfjrdohx" path="res://scene/power_up.tscn" id="3_netj5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g45jm"]
 size = Vector2(133, 131)
@@ -13,6 +14,7 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_030df")
 bala_scene = ExtResource("2_ivxke")
+powerup_scene = ExtResource("3_netj5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, -2)

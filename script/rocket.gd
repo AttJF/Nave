@@ -1,8 +1,10 @@
 extends Area2D
+
 @export var speed: float = 800.0
 @export var max_lifetime: float = 2.0  
-@export var damage: int = 1
-@export var cooldown_time: float = 0.30
+@export var damage: int = 5
+@export var cooldown_time: float = 2.0
+
 var direction: Vector2 = Vector2.RIGHT
 var _life: float = 0.0
 signal hit(target: Node)

@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 @export var move_speed: float = 300.0
@@ -13,11 +14,15 @@ var current_bala_type: balaType = balaType.NORMAL
 var is_invulnerable : bool = false
 var can_shoot: bool = true
 var life: int = 10
+signal bala_type_changed(new_type: int)
 
 func _physics_process(delta: float) -> void:
 	_move(delta)
 	_shoot(delta)
 	_clamp_inside_view()
+
+func _ready() -> void:
+	connect("bala_type_changed", Callable(self, "_on_bala_type_changed"))
 
 func _move(delta: float) -> void: #mover nas direções 
 	var input_vec := Vector2(
@@ -30,28 +35,25 @@ func _move(delta: float) -> void: #mover nas direções
 func _shoot(delta: float) -> void:
 	if not Input.is_action_pressed("shoot"):
 		return
-		
 	if not can_shoot: #controle do cooldown, o tempo de cooldown é passado pela cena bala
 		return	
-		
 	var muzzle := $Muzzle #muzzle
 	var scene := _get_current_bala_scene()
 	if scene == null:
 		return
 	var b := scene.instantiate() #instancia primeiro
-	
 	if b.has_signal("start_cooldown"): #pega o sinal do cooldown
 		b.connect("start_cooldown", Callable(self, "_on_bala_start_cooldown"))
-		
 	var parent := get_parent() # instacia com parente para a bala se mover por conta
 	parent.add_child(b)
 	can_shoot = false
 	b.global_position = muzzle.global_position
 	var dir := Vector2.RIGHT
-	
 	if b.has_method("setup"):
 		b.setup(dir)
 
+func _on_bala_type_changed(new_type: int) -> void:
+	current_bala_type = new_type
 
 func _get_current_bala_scene() -> PackedScene:
 	match current_bala_type:
@@ -78,7 +80,6 @@ func death_has_come()->void:
 	queue_free()
 	
 func _clamp_inside_view() -> void: #manter o player na tela 
-	
 	var rect := get_viewport_rect()
 	var p := global_position
 	p.x = clamp(p.x, rect.position.x + 8.0, rect.end.x - 8.0)
@@ -88,10 +89,7 @@ func _clamp_inside_view() -> void: #manter o player na tela
 func _start_i_frames(duration: float) -> void:
 	is_invulnerable = true
 	_flash_start() #pisca pisca
-
-	# timer
 	await get_tree().create_timer(duration).timeout
-
 	_flash_stop()
 	is_invulnerable = false
 
@@ -102,7 +100,6 @@ func _flash_start() -> void:
 		var tween := create_tween().set_loops() # loopando
 		tween.tween_property(self, "modulate:a", 0.3, 0.08)
 		tween.tween_property(self, "modulate:a", 1.0, 0.08)
-
 
 func _on_bala_start_cooldown(cd: float) -> void:
 	_start_shoot_cooldown(cd)
