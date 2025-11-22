@@ -13,8 +13,9 @@ enum balaType { NORMAL, ROCKET, SHOTGUN, FIRE }
 var current_bala_type: balaType = balaType.NORMAL
 var is_invulnerable : bool = false
 var can_shoot: bool = true
-var life: int = 10
+var life: int = 1
 signal bala_type_changed(new_type: int)
+signal life_changed(life :int)
 
 func _physics_process(delta: float) -> void:
 	_move(delta)
@@ -22,6 +23,7 @@ func _physics_process(delta: float) -> void:
 	_clamp_inside_view()
 
 func _ready() -> void:
+	life_changed.emit(life)
 	connect("bala_type_changed", Callable(self, "_on_bala_type_changed"))
 
 func _move(delta: float) -> void: #mover nas direções 
@@ -72,12 +74,14 @@ func _got_hit(damage:int) -> void:
 	if is_invulnerable:
 		return
 	life -= damage
+	life_changed.emit(life)
 	_start_i_frames(i_frame_time) 
 	if life <=0:
 		death_has_come()
 
 func death_has_come()->void:
 	queue_free()
+	get_tree().change_scene_to_file("res://scene/tela_perdeu.tscn")  
 	
 func _clamp_inside_view() -> void: #manter o player na tela 
 	var rect := get_viewport_rect()

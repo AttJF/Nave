@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var shoot_cooldown: float = 4.0 
 @export var bala_scene: PackedScene
 @export var powerup_scene: PackedScene
+@export var life_b: PackedScene
 @export var i_frame_time: float = 1.4
 @export var player_path: NodePath #onde esta o player
 @export var patrol_left_x: float = -100.0
@@ -12,7 +13,7 @@ extends CharacterBody2D
 @export var attack_range: float = 700.0
 @export var desired_distance: float = 500.0 # quão perto do player vai ficar ao ficar agressivo
 @export var distance_tolerance: float = 100
-@export var spot_hold_time: float = 2.0 	#tempo parano no lugar
+@export var spot_hold_time: float = 2.0 	#tempo para no no lugar
 @export var spot_tolerance: float = 10.0	#margem para se aproximar no ponto
 @export var screen_margin: float = 32.0      # margem pra não colar nas bordas
 @export var stuck_time: float = 0.6          # tempo controle para travamento
@@ -75,7 +76,6 @@ func _update_state() -> void: #tem que melhorar as maquinas de estado, esta meio
 				_run_target = Vector2.ZERO
 				_has_target = false
 
-
 func _process_state(delta: float) -> void:
 	match state: 
 		State.PATROL:
@@ -110,7 +110,6 @@ func _patrol_move(delta: float) -> void:
 		_dir_x = 1
 	elif global_position.x >= patrol_right_x:
 		_dir_x = -1
-
 
 func _stop_move() -> void:
 	velocity = Vector2.ZERO
@@ -149,7 +148,6 @@ func _chase_player(delta: float) -> void:
 	_last_pos = global_position
 	move_and_slide()
 
-
 func _shoot(delta: float) -> void:
 	_cool = max(0.0, _cool - delta)
 	if state != State.ATTACK:
@@ -177,11 +175,17 @@ func _got_hit(damage:int) -> void:
 
 func _death_has_come()->void:
 	queue_free()
-	var p := powerup_scene.instantiate()
+	_lotery()
+	emit_signal("died") # controle de waves 
+
+func _lotery()->void:# decidir o que ele vai deixar ao morrer
+	var options = [powerup_scene, life_b]
+	var winner: PackedScene = options.pick_random()
+	var p := winner.instantiate()
 	var parent := get_parent()
 	parent.add_child(p)
 	p.global_position = global_position
-	emit_signal("died") # controle de waves 
+	
 
 func _start_i_frames(duration: float) -> void:
 	is_invulnerable = true
@@ -232,8 +236,7 @@ func _choose_run_target(rect: Rect2) -> void:
 	if _player != null:
 		points = points.filter(
 			func(p: Vector2) -> bool:
-				return p.distance_to(_player.global_position) > min_distance_from_player
-		)
+				return p.distance_to(_player.global_position) > min_distance_from_player)
 
 	if _player != null and points.is_empty(): 	# se todos derem colisão, pega o mais distante do player
 		var best_point := all_points[0]
@@ -250,7 +253,6 @@ func _choose_run_target(rect: Rect2) -> void:
 		# sorteia um dos pontos seguros
 		var pool := points if not points.is_empty() else all_points
 		_run_target = pool[randi() % pool.size()]
-
 	_has_target = true
 
 func _pick_spot_to_attack() -> void: #é usado para mover o inimigo em uma posição ideal 

@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://baphi606nmsne"]
+
+[ext_resource type="Texture2D" uid="uid://p3kr0yj3oysk" path="res://sprite/Sprite-0002.png" id="1_rh14k"]
+
+[node name="Interface" type="CanvasLayer"]
+
+[node name="Lives" type="Label" parent="."]
+offset_left = 14.0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Lives"]
+position = Vector2(65, 54)
+texture = ExtResource("1_rh14k")
+
+[node name="Inimigos" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.012
+anchor_top = 0.035
+anchor_right = 0.012
+anchor_bottom = 0.035
+offset_left = 98.176
+offset_top = 11.32
+offset_right = 138.176
+offset_bottom = 34.32
+
+[node name="Level" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.059
+anchor_right = 0.03
+anchor_bottom = 0.059
+offset_left = 18.44
+offset_top = -19.232
+offset_right = 94.44
+offset_bottom = 18.768

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cji16mfiwp2jr"]
+
+[ext_resource type="Script" uid="uid://bf0l0fi6s8f77" path="res://script/life_b.gd" id="1_v4gv8"]
+[ext_resource type="Texture2D" uid="uid://clh3bi0otxqm4" path="res://icon.svg" id="2_0drda"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tj577"]
+size = Vector2(34, 33)
+
+[node name="lifeB" type="Area2D"]
+script = ExtResource("1_v4gv8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -4.5)
+shape = SubResource("RectangleShape2D_tj577")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -0.999939)
+scale = Vector2(0.304688, 0.289063)
+texture = ExtResource("2_0drda")

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://w6utl5cefu11"]
+[gd_scene load_steps=7 format=3 uid="uid://w6utl5cefu11"]
 
 [ext_resource type="Script" uid="uid://bojlx64ip5bq2" path="res://script/level_1.gd" id="1_xesoj"]
 [ext_resource type="PackedScene" uid="uid://cgw1ur5lo2fjx" path="res://scene/inimigo.tscn" id="2_53ndp"]
 [ext_resource type="PackedScene" uid="uid://dmi8dh0lc0t3k" path="res://scene/parallax_background.tscn" id="3_70cbr"]
+[ext_resource type="PackedScene" uid="uid://2mp7ky7fyul" path="res://scene/pause.tscn" id="3_lsoxn"]
 [ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="4_lsoxn"]
+[ext_resource type="PackedScene" uid="uid://vmsdgysft0lh" path="res://scene/interface.tscn" id="5_53ndp"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_xesoj")
@@ -31,3 +33,13 @@ position = Vector2(1102, 62)
 
 [node name="Spawn5" type="Marker2D" parent="SpawnCluster"]
 position = Vector2(919, 450)
+
+[node name="Interface" parent="." instance=ExtResource("5_53ndp")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("3_lsoxn")]
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 71.0
+offset_bottom = 65.0

@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr3kixr4kuupd"]
+
+[ext_resource type="Script" uid="uid://bb0cmqtmhjruj" path="res://script/tutorial_control.gd" id="1_tytcy"]
+[ext_resource type="PackedScene" uid="uid://cgw1ur5lo2fjx" path="res://scene/inimigo.tscn" id="2_462ap"]
+[ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="3_5qbti"]
+[ext_resource type="Script" uid="uid://cyj8qmloegb1k" path="res://script/localtutorial.gd" id="4_gvr3l"]
+[ext_resource type="Texture2D" uid="uid://bsx1w3c7bg8au" path="res://sprite/night_cloud_3.png" id="5_k01lb"]
+[ext_resource type="PackedScene" uid="uid://vmsdgysft0lh" path="res://scene/interface.tscn" id="6_462ap"]
+[ext_resource type="PackedScene" uid="uid://2mp7ky7fyul" path="res://scene/pause.tscn" id="7_5qbti"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6r6c"]
+size = Vector2(52, 50.5)
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_tytcy")
+inimigo_scene = ExtResource("2_462ap")
+
+[node name="Player" parent="." instance=ExtResource("3_5qbti")]
+
+[node name="ClusterLocal" type="Node2D" parent="."]
+
+[node name="Local1" type="Area2D" parent="ClusterLocal"]
+position = Vector2(298, 33)
+script = ExtResource("4_gvr3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="ClusterLocal/Local1"]
+position = Vector2(329, 527)
+scale = Vector2(0.181641, 0.234375)
+texture = ExtResource("5_k01lb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClusterLocal/Local1"]
+position = Vector2(330, 537)
+shape = SubResource("RectangleShape2D_q6r6c")
+
+[node name="Local2" type="Area2D" parent="ClusterLocal"]
+position = Vector2(344, 141)
+script = ExtResource("4_gvr3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="ClusterLocal/Local2"]
+position = Vector2(-218, 324)
+scale = Vector2(0.181641, 0.234375)
+texture = ExtResource("5_k01lb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClusterLocal/Local2"]
+position = Vector2(-218, 327)
+shape = SubResource("RectangleShape2D_q6r6c")
+
+[node name="Local3" type="Area2D" parent="ClusterLocal"]
+position = Vector2(389, 51)
+script = ExtResource("4_gvr3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="ClusterLocal/Local3"]
+position = Vector2(279, 7)
+scale = Vector2(0.181641, 0.234375)
+texture = ExtResource("5_k01lb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClusterLocal/Local3"]
+position = Vector2(291, 14)
+shape = SubResource("RectangleShape2D_q6r6c")
+
+[node name="Local4" type="Area2D" parent="ClusterLocal"]
+position = Vector2(545, 138)
+script = ExtResource("4_gvr3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="ClusterLocal/Local4"]
+position = Vector2(554, 126)
+scale = Vector2(0.181641, 0.234375)
+texture = ExtResource("5_k01lb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClusterLocal/Local4"]
+position = Vector2(559, 133)
+shape = SubResource("RectangleShape2D_q6r6c")
+
+[node name="SpawInimigo" type="Marker2D" parent="."]
+position = Vector2(1093, 157)
+
+[node name="Texto" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 572.0
+offset_right = 354.0
+offset_bottom = 636.0
+
+[node name="Interface" parent="." instance=ExtResource("6_462ap")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("7_5qbti")]
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 71.0
+offset_bottom = 65.0

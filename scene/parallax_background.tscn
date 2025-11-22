@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dace30dsjpcyk" path="res://sprite/combined_star_background.png" id="1_4e520"]
 [ext_resource type="Script" uid="uid://cgne6ayyvskqy" path="res://script/parallax_background.gd" id="1_di5jy"]
-[ext_resource type="Script" uid="uid://bbiq1pn8vhxi2" path="res://scene/horizonte.gd" id="2_4bxho"]
+[ext_resource type="Script" uid="uid://bbiq1pn8vhxi2" path="res://script/horizonte.gd" id="2_4bxho"]
 [ext_resource type="Texture2D" uid="uid://bsx1w3c7bg8au" path="res://sprite/night_cloud_3.png" id="2_di5jy"]
 [ext_resource type="Texture2D" uid="uid://cyhkbm2qkwlas" path="res://sprite/night_cloud_2.png" id="3_4bxho"]
 [ext_resource type="Texture2D" uid="uid://m7axwpbh7apm" path="res://sprite/night_cloud_1.png" id="4_toncw"]
