@@ -1,0 +1,227 @@
+[gd_scene load_steps=18 format=3 uid="uid://c16mepnb72n0x"]
+
+[ext_resource type="Script" uid="uid://dy775a5d0okgf" path="res://script/level_2.gd" id="1_pjrwy"]
+[ext_resource type="PackedScene" uid="uid://dmi8dh0lc0t3k" path="res://scene/parallax_background.tscn" id="2_r5ltt"]
+[ext_resource type="PackedScene" uid="uid://cgw1ur5lo2fjx" path="res://scene/inimigo.tscn" id="3_iviw1"]
+[ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="3_pm0i2"]
+[ext_resource type="PackedScene" uid="uid://votsxt0tdr15" path="res://scene/vento.tscn" id="4_ds6wj"]
+[ext_resource type="PackedScene" uid="uid://b3fyccew3otb4" path="res://scene/inimigo_mae.tscn" id="4_r5ltt"]
+[ext_resource type="Texture2D" uid="uid://capc562b6gnfx" path="res://sprite/info.png" id="7_ds6wj"]
+[ext_resource type="Script" uid="uid://cyj8qmloegb1k" path="res://script/localtutorial.gd" id="7_txbx5"]
+[ext_resource type="PackedScene" uid="uid://2mp7ky7fyul" path="res://scene/pause.tscn" id="8_g1oo2"]
+[ext_resource type="PackedScene" uid="uid://vmsdgysft0lh" path="res://scene/interface.tscn" id="10_txbx5"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_r5ltt"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_pm0i2"]
+a = Vector2(8, 1)
+b = Vector2(147, 1)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_r5ltt"]
+a = Vector2(1, -12)
+b = Vector2(-1, 118)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_pm0i2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txbx5"]
+size = Vector2(71.5148, 57.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1oo2"]
+size = Vector2(72.0117, 92)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngmhx"]
+size = Vector2(53.6913, 58)
+
+[node name="level_2" type="Node2D" groups=["enemy"]]
+scale = Vector2(1.00634, 1)
+script = ExtResource("1_pjrwy")
+inimigo_mae_scene = ExtResource("4_r5ltt")
+inimigo_scene = ExtResource("3_iviw1")
+vento_scene = ExtResource("4_ds6wj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+light_mask = 6
+position = Vector2(765, 550)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(72, 1.14441e-05)
+scale = Vector2(152, 5.99998)
+texture = SubResource("CanvasTexture_r5ltt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+light_mask = 0
+shape = SubResource("SegmentShape2D_pm0i2")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_r5ltt")]
+
+[node name="Player" parent="." instance=ExtResource("3_pm0i2")]
+position = Vector2(64, 314)
+
+[node name="SpawnCluster" type="Node2D" parent="."]
+position = Vector2(0, 20)
+
+[node name="Spawn6" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(2030, 1158)
+
+[node name="Spawn4" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1111, 592)
+
+[node name="Spawn3" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(817, 71)
+
+[node name="Spawn2" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1099, 320)
+
+[node name="Spawn1" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1100, 45)
+
+[node name="Spawn5" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(563, 324)
+
+[node name="Spawn8" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(2030, 1158)
+
+[node name="Spawn7" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(944, 313)
+
+[node name="inimigo_mae" parent="." groups=["enemy"] instance=ExtResource("4_r5ltt")]
+position = Vector2(970, 192)
+
+[node name="inimigo_mae2" parent="." groups=["enemy"] instance=ExtResource("4_r5ltt")]
+position = Vector2(989.725, 490)
+
+[node name="inimigo_mae3" parent="." groups=["enemy"] instance=ExtResource("4_r5ltt")]
+position = Vector2(66, 60)
+
+[node name="inimigo_mae4" parent="." groups=["enemy"] instance=ExtResource("4_r5ltt")]
+position = Vector2(64, 594)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+light_mask = 7
+position = Vector2(761, 422)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(4, 6)
+shape = SubResource("SegmentShape2D_r5ltt")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+position = Vector2(2.75001, 69.75)
+scale = Vector2(6.50002, 140.5)
+texture = SubResource("CanvasTexture_pm0i2")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+light_mask = 7
+position = Vector2(756, 117)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(6, 2)
+shape = SubResource("SegmentShape2D_r5ltt")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+position = Vector2(2.75001, 69.75)
+scale = Vector2(6.50002, 140.5)
+texture = SubResource("CanvasTexture_pm0i2")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+light_mask = 0
+position = Vector2(762, 132)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D4"]
+position = Vector2(72, 1.14441e-05)
+scale = Vector2(152, 5.99998)
+texture = SubResource("CanvasTexture_r5ltt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource("SegmentShape2D_pm0i2")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+light_mask = 7
+position = Vector2(761, 251)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
+position = Vector2(72, 1.14441e-05)
+scale = Vector2(152, 5.99998)
+texture = SubResource("CanvasTexture_r5ltt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+position = Vector2(25, -1)
+shape = SubResource("SegmentShape2D_pm0i2")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+light_mask = 7
+position = Vector2(763, 423)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D6"]
+position = Vector2(72, 1.14441e-05)
+scale = Vector2(152, 5.99998)
+texture = SubResource("CanvasTexture_r5ltt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+shape = SubResource("SegmentShape2D_pm0i2")
+
+[node name="DiskCluster" type="Node2D" parent="."]
+
+[node name="Disk1" type="Area2D" parent="DiskCluster"]
+position = Vector2(157.998, -263)
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("7_txbx5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiskCluster/Disk1"]
+position = Vector2(671.741, 450)
+shape = SubResource("RectangleShape2D_txbx5")
+
+[node name="Sprite2D" type="Sprite2D" parent="DiskCluster/Disk1"]
+position = Vector2(673.728, 452)
+scale = Vector2(0.0505807, 0.0561524)
+texture = ExtResource("7_ds6wj")
+
+[node name="Disk2" type="Area2D" parent="DiskCluster"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("7_txbx5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiskCluster/Disk2"]
+position = Vector2(830.733, 487)
+shape = SubResource("RectangleShape2D_g1oo2")
+
+[node name="Sprite2D" type="Sprite2D" parent="DiskCluster/Disk2"]
+position = Vector2(830.733, 488)
+scale = Vector2(0.0701084, 0.0693359)
+texture = ExtResource("7_ds6wj")
+
+[node name="Disk3" type="Area2D" parent="DiskCluster"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("7_txbx5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiskCluster/Disk3"]
+position = Vector2(237.479, 326)
+shape = SubResource("RectangleShape2D_ngmhx")
+
+[node name="Sprite2D" type="Sprite2D" parent="DiskCluster/Disk3"]
+position = Vector2(235.507, 325)
+scale = Vector2(0.0477889, 0.0419922)
+texture = ExtResource("7_ds6wj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("8_g1oo2")]
+offset_left = 1.0
+offset_right = 68.0
+offset_bottom = 63.0
+
+[node name="Intro" type="Label" parent="."]
+offset_left = 158.992
+offset_top = 91.0
+offset_right = 976.993
+offset_bottom = 296.0
+text = "Os inimigos estão protegendo informações preciosas, precisamos delas, obtenha 3 disquetes dos inimigos"
+
+[node name="Interface" parent="." instance=ExtResource("10_txbx5")]

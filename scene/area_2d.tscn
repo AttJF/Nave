@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://batdkgdybakgv"]
+
+[ext_resource type="Texture2D" uid="uid://bfua5ryduj1lm" path="res://sprite/foigo.png" id="1_gf172"]
+
+[sub_resource type="GDScript" id="GDScript_gf172"]
+script/source = "extends Area2D
+
+@export var damage: int = 2
+@export var duration: float = 4.0 
+
+var _life: float = 0.0
+signal hit(target: Node)
+#mesmo que bala, porem parado no lugar
+func _ready() -> void:
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
+
+func _physics_process(delta: float) -> void:
+	_life += delta
+	if _life >= duration:
+		queue_free()
+
+func _on_body_entered(body: Node) -> void:
+	emit_signal(\"hit\", body)
+	if body.has_method(\"_got_hit\"):
+		body._got_hit(damage)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dl81w"]
+
+[node name="field" type="Area2D"]
+script = SubResource("GDScript_gf172")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gf172")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dl81w")

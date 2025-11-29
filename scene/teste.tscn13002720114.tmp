@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://vmhv5bysm8oj"]
+
+[ext_resource type="PackedScene" uid="uid://dcgv8ntjl134d" path="res://scene/boss.tscn" id="1_0ol6v"]
+[ext_resource type="Script" uid="uid://co1g2xgqp5c4p" path="res://script/teste.gd" id="1_w0po7"]
+[ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="2_w0po7"]
+[ext_resource type="PackedScene" uid="uid://cvn0toy0cmp47" path="res://scene/fire.tscn" id="3_lpagq"]
+[ext_resource type="PackedScene" uid="uid://vmsdgysft0lh" path="res://scene/interface.tscn" id="5_2a54g"]
+[ext_resource type="PackedScene" uid="uid://2mp7ky7fyul" path="res://scene/pause.tscn" id="6_kngdf"]
+
+[node name="Level_3" type="Node2D"]
+script = ExtResource("1_w0po7")
+
+[node name="Boss" parent="." instance=ExtResource("1_0ol6v")]
+position = Vector2(1081, 304)
+
+[node name="Player" parent="." instance=ExtResource("2_w0po7")]
+position = Vector2(46, 298)
+bala_fire_scene = ExtResource("3_lpagq")
+
+[node name="Intro" type="Label" parent="."]
+offset_left = 157.998
+offset_top = 188.0
+offset_right = 975.998
+offset_bottom = 393.0
+text = "Cuidado, o inimigo são 3 partes trabalhando juntas, cada parte so pode ser destruida por um tipo de bala."
+
+[node name="Interface" parent="." groups=["enemy"] instance=ExtResource("5_2a54g")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("6_kngdf")]
+offset_left = -3.0
+offset_top = -12.0
+offset_right = 64.0
+offset_bottom = 51.0

@@ -14,7 +14,7 @@ func abrir() -> void:
 	get_tree().paused = true
 
 func fechar() -> void:
-	visible = false
+	visible = false#visibilidade
 	get_tree().paused = false
 
 func pausedespause() -> void:
@@ -22,10 +22,10 @@ func pausedespause() -> void:
 		fechar()
 	else:
 		abrir()
-
+		
 func _on_continuar_pressed() -> void:
-	fechar() 
+	fechar()  # so volta
 
 func _on_sair_pressed() -> void:
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scene/main_menu.tscn") 
+	get_tree().change_scene_to_file("res://scene/main_menu.tscn") #volta para o menu do inicio

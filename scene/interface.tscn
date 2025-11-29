@@ -17,7 +17,7 @@ layout_mode = 2
 texture_repeat = 2
 layout_mode = 2
 
-[node name="Level" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Tempo" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Inimigos" type="Label" parent="MarginContainer/VBoxContainer"]

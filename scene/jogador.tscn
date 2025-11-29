@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://daonx076fnnj0" path="res://scene/rocket.tscn" id="3_mbdpa"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-collision_mask = 10
+collision_layer = 2
+collision_mask = 121
 script = ExtResource("1_wokll")
 bala_scene = ExtResource("2_ad57j")
 bala_rocket_scene = ExtResource("3_mbdpa")

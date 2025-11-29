@@ -1,0 +1,99 @@
+[gd_scene load_steps=15 format=3 uid="uid://dcgv8ntjl134d"]
+
+[ext_resource type="Script" uid="uid://dx5k5s45bi6jn" path="res://script/boss.gd" id="1_0bnu1"]
+[ext_resource type="Script" uid="uid://b52luo6b32gy" path="res://script/satelit.gd" id="2_6xxrv"]
+[ext_resource type="PackedScene" uid="uid://bv356yqejcu70" path="res://scene/field.tscn" id="3_27m4v"]
+[ext_resource type="Texture2D" uid="uid://p3kr0yj3oysk" path="res://sprite/Sprite-0002.png" id="3_o1i15"]
+[ext_resource type="Script" uid="uid://cf2mir5wsn5y6" path="res://script/arms.gd" id="3_skx2t"]
+[ext_resource type="PackedScene" uid="uid://dm3jy3n6c4eol" path="res://scene/bala_e.tscn" id="3_we8h1"]
+[ext_resource type="PackedScene" uid="uid://budqsf2gt56sx" path="res://scene/sprite_2d.tscn" id="5_27m4v"]
+[ext_resource type="Texture2D" uid="uid://cp8nhjr027mm6" path="res://sprite/sss2.png" id="5_we8h1"]
+[ext_resource type="Texture2D" uid="uid://clh3bi0otxqm4" path="res://icon.svg" id="6_we8h1"]
+[ext_resource type="Script" uid="uid://d0uijwidkuwpa" path="res://script/arms_2.gd" id="7_kvofc"]
+[ext_resource type="PackedScene" uid="uid://d0o8rvt2gw6pr" path="res://rocket_e.tscn" id="8_b5yaj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ef0k6"]
+size = Vector2(63, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ry61v"]
+size = Vector2(55, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kles1"]
+size = Vector2(56, 61.5)
+
+[node name="Boss" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_0bnu1")
+
+[node name="Satelit" type="CharacterBody2D" parent="." groups=["enemy"]]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("2_6xxrv")
+field_scene = ExtResource("3_27m4v")
+bala_scene = ExtResource("3_we8h1")
+life = 20
+orbit_radius = 500.0
+warning_scene = ExtResource("5_27m4v")
+warning_time = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Satelit"]
+position = Vector2(17.5, 12)
+scale = Vector2(2.09375, 1.75)
+texture = ExtResource("3_o1i15")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Satelit"]
+position = Vector2(14.5, 12.5)
+shape = SubResource("RectangleShape2D_ef0k6")
+
+[node name="ClusterShot" type="Node2D" parent="Satelit"]
+
+[node name="Marker2D" type="Marker2D" parent="Satelit/ClusterShot"]
+position = Vector2(-498, -15)
+
+[node name="Marker2D5" type="Marker2D" parent="Satelit/ClusterShot"]
+position = Vector2(-31, -6)
+
+[node name="Marker2D4" type="Marker2D" parent="Satelit/ClusterShot"]
+position = Vector2(-149, -10)
+
+[node name="Marker2D3" type="Marker2D" parent="Satelit/ClusterShot"]
+position = Vector2(-268, -8)
+
+[node name="Marker2D2" type="Marker2D" parent="Satelit/ClusterShot"]
+position = Vector2(-380, -11)
+
+[node name="Arms1" type="CharacterBody2D" parent="." groups=["enemy"]]
+position = Vector2(-173, -134)
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("3_skx2t")
+bala_scene = ExtResource("8_b5yaj")
+life = 11
+move_speed_x = -1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="Arms1"]
+position = Vector2(17.5, 11.5)
+scale = Vector2(2.09375, 1.71875)
+texture = ExtResource("5_we8h1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms1"]
+position = Vector2(17.5, 13)
+shape = SubResource("RectangleShape2D_ry61v")
+
+[node name="Arms2" type="CharacterBody2D" parent="." groups=["enemy"]]
+position = Vector2(-8, 4)
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("7_kvofc")
+bala_scene = ExtResource("3_we8h1")
+life = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="Arms2"]
+position = Vector2(-150, 56)
+scale = Vector2(0.5, 0.53125)
+texture = ExtResource("6_we8h1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arms2"]
+position = Vector2(-152, 54)
+shape = SubResource("RectangleShape2D_kles1")

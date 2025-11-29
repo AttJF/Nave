@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://cr70ibdxjsoyx"]
+
+[ext_resource type="Script" uid="uid://c6mxdsd78ov6x" path="res://script/level_final.gd" id="1_bhxgo"]
+[ext_resource type="PackedScene" uid="uid://h405qx667aps" path="res://scene/monster_wall.tscn" id="2_ve6xf"]
+[ext_resource type="PackedScene" uid="uid://vmsdgysft0lh" path="res://scene/interface.tscn" id="3_l7sp0"]
+[ext_resource type="PackedScene" uid="uid://bx7o85hqq5ihj" path="res://scene/inimigo_fase_monstro.tscn" id="3_urlx4"]
+[ext_resource type="PackedScene" uid="uid://2mp7ky7fyul" path="res://scene/pause.tscn" id="4_kny3n"]
+[ext_resource type="PackedScene" uid="uid://votsxt0tdr15" path="res://scene/vento.tscn" id="4_y5oo3"]
+[ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="5_ve6xf"]
+[ext_resource type="PackedScene" uid="uid://dxx5ba8pgfa4" path="res://parallax_background_2.tscn" id="8_urlx4"]
+
+[node name="level_final" type="Node2D"]
+script = ExtResource("1_bhxgo")
+inimigo_scene = ExtResource("3_urlx4")
+vento_scene = ExtResource("4_y5oo3")
+
+[node name="MonsterWall" parent="." groups=["enemy"] instance=ExtResource("2_ve6xf")]
+position = Vector2(-406, 410)
+collision_layer = 8
+collision_mask = 7
+
+[node name="Interface" parent="." instance=ExtResource("3_l7sp0")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("4_kny3n")]
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 71.0
+offset_bottom = 65.0
+
+[node name="Intro" type="Label" parent="."]
+offset_left = 182.0
+offset_top = 88.0
+offset_right = 961.0
+offset_bottom = 111.0
+text = "Sobreviva por 60 segundos até ajuda chegar, CUIDADO, a maquina atras de você é letal, não toque nela"
+
+[node name="Player" parent="." groups=["enemy"] instance=ExtResource("5_ve6xf")]
+position = Vector2(429, 324)
+
+[node name="SpawnCluster" type="Node2D" parent="."]
+position = Vector2(0, 20)
+
+[node name="Spawn4" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1110, 556)
+
+[node name="Spawn3" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(910, 185)
+
+[node name="Spawn2" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1098, 311)
+
+[node name="Spawn1" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(1102, 62)
+
+[node name="Spawn5" type="Marker2D" parent="SpawnCluster"]
+position = Vector2(919, 450)
+
+[node name="ParallaxBackground2" parent="." instance=ExtResource("8_urlx4")]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://h405qx667aps"]
+
+[ext_resource type="Script" uid="uid://cxrjt5hfaigeb" path="res://script/monster_wall.gd" id="1_c0nfp"]
+[ext_resource type="Texture2D" uid="uid://6036otil50mj" path="res://sprite/7c50c950-e5a9-46d8-b1cd-8ff94a7bbd81.png" id="2_ca5hx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2v72s"]
+size = Vector2(984, 827)
+
+[node name="MonsterWall" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_c0nfp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ca5hx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(19, -100.5)
+shape = SubResource("RectangleShape2D_2v72s")

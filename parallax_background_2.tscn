@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxx5ba8pgfa4"]
+
+[ext_resource type="Script" uid="uid://cgne6ayyvskqy" path="res://script/parallax_background.gd" id="1_p0ovm"]
+[ext_resource type="Script" uid="uid://bbiq1pn8vhxi2" path="res://script/horizonte.gd" id="2_b84n5"]
+[ext_resource type="Texture2D" uid="uid://dldck0shrv17x" path="res://sprite/757e6395-9b2a-4c9c-90c5-d42ee5084bad.png" id="3_p0ovm"]
+[ext_resource type="Texture2D" uid="uid://bsx1w3c7bg8au" path="res://sprite/night_cloud_3.png" id="4_kk2yd"]
+[ext_resource type="Texture2D" uid="uid://cyhkbm2qkwlas" path="res://sprite/night_cloud_2.png" id="5_ylpc2"]
+[ext_resource type="Texture2D" uid="uid://m7axwpbh7apm" path="res://sprite/night_cloud_1.png" id="6_5sgpw"]
+
+[node name="ParallaxBackground2" type="ParallaxBackground"]
+script = ExtResource("1_p0ovm")
+
+[node name="horizonte" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(2574, 0)
+script = ExtResource("2_b84n5")
+
+[node name="Sprite2D" type="Sprite2D" parent="horizonte"]
+position = Vector2(511.375, 239)
+scale = Vector2(1.67529, 0.80957)
+texture = ExtResource("3_p0ovm")
+
+[node name="nuvens" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(2574.34, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="nuvens"]
+
+[node name="Sprite2D" type="Sprite2D" parent="nuvens"]
+position = Vector2(-928, 131)
+texture = ExtResource("4_kk2yd")
+
+[node name="Sprite2D2" type="Sprite2D" parent="nuvens"]
+position = Vector2(170, 176)
+texture = ExtResource("5_ylpc2")
+
+[node name="Sprite2D4" type="Sprite2D" parent="nuvens"]
+position = Vector2(980, 57)
+texture = ExtResource("6_5sgpw")
+
+[node name="Sprite2D5" type="Sprite2D" parent="nuvens"]
+position = Vector2(-478, 70)
+texture = ExtResource("6_5sgpw")

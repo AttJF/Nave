@@ -1,0 +1,29 @@
+[gd_scene load_steps=9 format=3 uid="uid://bx7o85hqq5ihj"]
+
+[ext_resource type="Script" uid="uid://dcsegim1a044t" path="res://script/inimigo_fase_monstro.gd" id="1_ll0yo"]
+[ext_resource type="PackedScene" uid="uid://dm3jy3n6c4eol" path="res://scene/bala_e.tscn" id="2_wq6su"]
+[ext_resource type="PackedScene" uid="uid://jnsc55rmawf1" path="res://scene/bala_m.tscn" id="3_fadhc"]
+[ext_resource type="PackedScene" uid="uid://dcr8ivfjrdohx" path="res://scene/power_up.tscn" id="4_xrfib"]
+[ext_resource type="PackedScene" uid="uid://cq8txrwbpohea" path="res://scene/power_up_fire.tscn" id="5_rawxs"]
+[ext_resource type="PackedScene" uid="uid://cji16mfiwp2jr" path="res://scene/life_b.tscn" id="6_ie0jq"]
+[ext_resource type="Texture2D" uid="uid://clh3bi0otxqm4" path="res://icon.svg" id="7_v5pdj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrfib"]
+size = Vector2(128, 127)
+
+[node name="inimigo_fase_monstro" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_ll0yo")
+bala_scene = ExtResource("2_wq6su")
+bala_scene2 = ExtResource("3_fadhc")
+powerup_scene = ExtResource("4_xrfib")
+powerup_scene_fi = ExtResource("5_rawxs")
+life_b = ExtResource("6_ie0jq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("7_v5pdj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 1.5)
+shape = SubResource("RectangleShape2D_xrfib")

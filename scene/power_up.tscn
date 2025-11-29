@@ -1,12 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcr8ivfjrdohx"]
 
 [ext_resource type="Script" uid="uid://44gbxvmqybwj" path="res://script/power_up.gd" id="1_y587k"]
-[ext_resource type="Texture2D" uid="uid://p3kr0yj3oysk" path="res://sprite/Sprite-0002.png" id="2_iilmc"]
+[ext_resource type="Texture2D" uid="uid://cp8nhjr027mm6" path="res://sprite/sss2.png" id="2_iilmc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xeq78"]
 size = Vector2(32, 31)
 
 [node name="powerUP" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
 script = ExtResource("1_y587k")
 max_lifetime = 10.0
 

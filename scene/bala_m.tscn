@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://jnsc55rmawf1"]
+
+[ext_resource type="Script" uid="uid://chagkcr7qyhjq" path="res://script/bala_m.gd" id="1_p7jra"]
+[ext_resource type="Texture2D" uid="uid://dfxjtfs8tlrvk" path="res://sprite/9e5f91a8-0750-40a4-b845-b030a6502ec2.png" id="2_p7jra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bh38h"]
+size = Vector2(42, 20)
+
+[node name="balaM" type="Area2D"]
+collision_layer = 136
+collision_mask = 136
+script = ExtResource("1_p7jra")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p7jra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(11, 0)
+shape = SubResource("RectangleShape2D_bh38h")

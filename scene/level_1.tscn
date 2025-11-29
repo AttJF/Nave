@@ -1,20 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://w6utl5cefu11"]
+[gd_scene load_steps=10 format=3 uid="uid://w6utl5cefu11"]
 
 [ext_resource type="Script" uid="uid://bojlx64ip5bq2" path="res://script/level_1.gd" id="1_xesoj"]
 [ext_resource type="PackedScene" uid="uid://cgw1ur5lo2fjx" path="res://scene/inimigo.tscn" id="2_53ndp"]
+[ext_resource type="PackedScene" uid="uid://b3fyccew3otb4" path="res://scene/inimigo_mae.tscn" id="2_c1764"]
 [ext_resource type="PackedScene" uid="uid://dmi8dh0lc0t3k" path="res://scene/parallax_background.tscn" id="3_70cbr"]
 [ext_resource type="PackedScene" uid="uid://2mp7ky7fyul" path="res://scene/pause.tscn" id="3_lsoxn"]
+[ext_resource type="PackedScene" uid="uid://votsxt0tdr15" path="res://scene/vento.tscn" id="3_x17xt"]
 [ext_resource type="PackedScene" uid="uid://djm7vv50dn8yb" path="res://scene/jogador.tscn" id="4_lsoxn"]
 [ext_resource type="PackedScene" uid="uid://vmsdgysft0lh" path="res://scene/interface.tscn" id="5_53ndp"]
+[ext_resource type="PackedScene" uid="uid://cvn0toy0cmp47" path="res://scene/fire.tscn" id="6_x17xt"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_xesoj")
+inimigo_mae_scene = ExtResource("2_c1764")
 inimigo_scene = ExtResource("2_53ndp")
+vento_scene = ExtResource("3_x17xt")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("3_70cbr")]
 
 [node name="Player" parent="." instance=ExtResource("4_lsoxn")]
 position = Vector2(-1101, 126)
+bala_fire_scene = ExtResource("6_x17xt")
+life = 14
 
 [node name="SpawnCluster" type="Node2D" parent="."]
 position = Vector2(0, 20)
@@ -43,3 +50,7 @@ offset_left = 4.0
 offset_top = 2.0
 offset_right = 71.0
 offset_bottom = 65.0
+
+[node name="Intro" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

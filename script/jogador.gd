@@ -5,15 +5,15 @@ extends CharacterBody2D
 @export var bala_scene: PackedScene   
 @export var i_frame_time: float = 1.4     
 @export var bala_rocket_scene: PackedScene
-@export var bala_power_scene: PackedScene
 @export var bala_spread_scene: PackedScene
-@export var bala_laser_scene: PackedScene
+@export var bala_fire_scene: PackedScene
+@export var life: int = 10
 
-enum balaType { NORMAL, ROCKET, SHOTGUN, FIRE }
+enum balaType { NORMAL, ROCKET, FIRE }
 var current_bala_type: balaType = balaType.NORMAL
-var is_invulnerable : bool = false
-var can_shoot: bool = true
-var life: int = 1
+var is_invulnerable : bool = false #controle se esta invuneravel
+var under_wind: bool = false #controle se esta sofrendo vento
+var can_shoot: bool = true #provavelmente n precisa mais disso
 signal bala_type_changed(new_type: int)
 signal life_changed(life :int)
 
@@ -24,14 +24,20 @@ func _physics_process(delta: float) -> void:
 
 func _ready() -> void:
 	life_changed.emit(life)
-	connect("bala_type_changed", Callable(self, "_on_bala_type_changed"))
+	connect("bala_type_changed", Callable(self, "_on_bala_type_changed"))#para chamar função quando receber sinal de trocar bala
+	add_to_group("player") 
 
 func _move(delta: float) -> void: #mover nas direções 
 	var input_vec := Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	).normalized()
-	velocity = input_vec * move_speed
+
+	var current_speed := move_speed
+	if under_wind:
+		current_speed *= 0.2  
+
+	velocity = input_vec * current_speed
 	move_and_slide()
 
 func _shoot(delta: float) -> void:
@@ -63,10 +69,8 @@ func _get_current_bala_scene() -> PackedScene:
 			return bala_scene
 		balaType.ROCKET:
 			return bala_rocket_scene
-		balaType.SHOTGUN:
-			return bala_spread_scene
 		balaType.FIRE:
-			return bala_laser_scene
+			return bala_fire_scene
 		_:
 			return bala_scene
 
@@ -81,6 +85,7 @@ func _got_hit(damage:int) -> void:
 
 func death_has_come()->void:
 	queue_free()
+	Autoload.save_level() 
 	get_tree().change_scene_to_file("res://scene/tela_perdeu.tscn")  
 	
 func _clamp_inside_view() -> void: #manter o player na tela 
@@ -117,3 +122,7 @@ func _flash_stop() -> void:
 	for t in get_tree().get_processed_tweens():
 		if t.is_valid():
 			t.kill()
+
+func _on_wind_move_b(target: Node, is_active: bool) -> void:
+	if target == self:
+		under_wind = is_active

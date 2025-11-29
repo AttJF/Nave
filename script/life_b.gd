@@ -1,9 +1,10 @@
 extends Area2D
+#basicamente uma bala que vai para baixo, muda quais sinais ele manda, da um dano negativo para curar o player 
 @export var speed: float = 50.0
 @export var max_lifetime: float = 2.0  
 @export var damage: int = -3
 @export var cooldown_time: float = 0.30
-@export var tipo_novo: int = Player.balaType.ROCKET
+@export var tipo_novo: int = Player.balaType.NORMAL
 var direction: Vector2 = Vector2.DOWN   # desce 
 var _life: float = 0.0
 signal hit(target: Node)
@@ -31,5 +32,7 @@ func _is_out_of_screen() -> bool:
 func _on_body_entered(body: Node) -> void:
 	emit_signal("hit", body)
 	if body.has_method("_got_hit"):
-		body._got_hit(damage)
-	queue_free()
+		body.call_deferred("_got_hit", damage)#estava dando problema, tem que usar call deferred para coisas n acontecerem ao mesmo tempo
+	if body is Player:
+		body.emit_signal("bala_type_changed", tipo_novo)
+	call_deferred("queue_free")

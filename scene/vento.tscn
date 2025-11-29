@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://votsxt0tdr15"]
+
+[ext_resource type="Script" uid="uid://b3mcmqv30m1h5" path="res://script/vento.gd" id="1_nun2v"]
+[ext_resource type="Texture2D" uid="uid://r5hxosbls0xc" path="res://sprite/vento.png" id="2_x210s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nbxf"]
+size = Vector2(414, 145)
+
+[node name="vento" type="Area2D"]
+position = Vector2(277, 88)
+collision_layer = 64
+collision_mask = 2
+script = ExtResource("1_nun2v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(192.813, 16.125)
+rotation = 3.14159
+scale = Vector2(0.435181, 0.213135)
+texture = ExtResource("2_x210s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(193, 20.5)
+shape = SubResource("RectangleShape2D_5nbxf")

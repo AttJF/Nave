@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv356yqejcu70"]
+
+[ext_resource type="Script" uid="uid://nadlfcwxkb" path="res://script/field.gd" id="1_odcg7"]
+[ext_resource type="Texture2D" uid="uid://bfua5ryduj1lm" path="res://sprite/foigo.png" id="2_evxyq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_galdp"]
+size = Vector2(177, 113)
+
+[node name="field" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_odcg7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-26, -6)
+scale = Vector2(0.212891, 0.251953)
+texture = ExtResource("2_evxyq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-15.5, -0.5)
+shape = SubResource("RectangleShape2D_galdp")

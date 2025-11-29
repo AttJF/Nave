@@ -22,6 +22,12 @@ offset_right = 877.0
 offset_bottom = 419.0
 theme_override_constants/separation = 6
 
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Você Morreu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Continuar" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0.945098, 0, 1)
@@ -29,10 +35,9 @@ theme_override_colors/font_hover_pressed_color = Color(0, 0.921569, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0.933333, 0, 1)
 text = "Tentar de Novo"
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+[node name="Sair" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "Você Morreu"
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "Sair"
 
 [connection signal="pressed" from="Panel/VBoxContainer/Continuar" to="." method="_on_continuar_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Sair" to="." method="_on_sair_pressed"]

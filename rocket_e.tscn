@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0o8rvt2gw6pr"]
+
+[ext_resource type="Script" uid="uid://bcrnvidou67ra" path="res://script/rocket_e.gd" id="1_lyrej"]
+[ext_resource type="Texture2D" uid="uid://bjmunhadu400t" path="res://sprite/attack_sprite_single.png" id="2_wle00"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyrej"]
+size = Vector2(234, 92)
+
+[node name="rocketE" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_lyrej")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(34, 0)
+shape = SubResource("RectangleShape2D_lyrej")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 1)
+scale = Vector2(4.51563, 2.84375)
+texture = ExtResource("2_wle00")

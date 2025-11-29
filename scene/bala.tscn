@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bjmunhadu400t" path="res://sprite/attack_sprite_single.png" id="2_ui3sr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ywahg"]
-size = Vector2(10.5, 6)
+size = Vector2(27.7813, 46.5)
 
 [node name="bala" type="Area2D"]
-collision_mask = 2
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("1_ywahg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

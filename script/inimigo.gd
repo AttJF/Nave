@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var shoot_cooldown: float = 4.0 
 @export var bala_scene: PackedScene
 @export var powerup_scene: PackedScene
+@export var powerup_scene_fire: PackedScene
 @export var life_b: PackedScene
 @export var i_frame_time: float = 1.4
 @export var player_path: NodePath #onde esta o player
@@ -24,7 +25,7 @@ enum State { IDLE, PATROL, ATTACK, RUNNING } #maquina de estado
 var state: State = State.PATROL #começa na patrulha
 var _cool: float = 0.0
 var is_invulnerable : bool = false
-var life: int = 1
+var life: int = 6
 var lifetotal: int =10 #controle para saber se tomou tiro 
 var _dir_x: int = 1
 var _player: Node2D = null
@@ -35,6 +36,7 @@ var _last_pos: Vector2 = Vector2.ZERO
 var _stuck_timer: float = 0.0
 var _run_target: Vector2 = Vector2.ZERO  # local para fugir quando tomar bala
 var _has_target: bool = false     
+var _dead: bool = false
 signal died() #controle de waves
 
 func _ready() -> void:
@@ -46,13 +48,15 @@ func _ready() -> void:
 			_player = found as Node2D
 
 func _physics_process(delta: float) -> void:
+	if _dead:
+		_dead = false
+		_death_has_come()
 	_update_state()
 	_process_state(delta)
 	_shoot(delta)
 	_clamp_inside_view()
 
-
-func _update_state() -> void: #tem que melhorar as maquinas de estado, esta meio esquisito
+func _update_state() -> void:
 	var prev_state := state
 	if _player == null:
 		state = State.PATROL
@@ -102,7 +106,7 @@ func _running_away() -> void:
 		velocity = Vector2.ZERO
 	move_and_slide()
 	
-func _patrol_move(delta: float) -> void:
+func _patrol_move(delta: float) -> void: #praticamente n usa
 	velocity.x = _dir_x * move_speed
 	velocity.y = 0.0
 	move_and_slide()
@@ -160,18 +164,18 @@ func _shoot(delta: float) -> void:
 	var parent := get_parent()
 	parent.add_child(b)
 	b.global_position = global_position
-	var dir := (_player.global_position - global_position).normalized()
+	var dir := (_player.global_position - global_position).normalized()#para passar a posição do player como alvo
 	if b.has_method("setup"):
 		b.setup(dir)
 	_cool = shoot_cooldown
 
-func _got_hit(damage:int) -> void:
+func _got_hit(damage:int) -> void:#igual player
 	if is_invulnerable:
 		return
 	life -= damage
 	_start_i_frames(i_frame_time)
 	if life <= 0:
-		_death_has_come()
+		_dead = true
 
 func _death_has_come()->void:
 	queue_free()
@@ -179,13 +183,12 @@ func _death_has_come()->void:
 	emit_signal("died") # controle de waves 
 
 func _lotery()->void:# decidir o que ele vai deixar ao morrer
-	var options = [powerup_scene, life_b]
+	var options = [powerup_scene, life_b, powerup_scene_fire]
 	var winner: PackedScene = options.pick_random()
 	var p := winner.instantiate()
 	var parent := get_parent()
 	parent.add_child(p)
 	p.global_position = global_position
-	
 
 func _start_i_frames(duration: float) -> void:
 	is_invulnerable = true
@@ -232,23 +235,19 @@ func _choose_run_target(rect: Rect2) -> void:
 		bottom_mid
 	]
 	var points := all_points.duplicate()
-
-	if _player != null:
+	if _player != null: 
 		points = points.filter(
 			func(p: Vector2) -> bool:
 				return p.distance_to(_player.global_position) > min_distance_from_player)
-
 	if _player != null and points.is_empty(): 	# se todos derem colisão, pega o mais distante do player
 		var best_point := all_points[0]
 		var best_dist := best_point.distance_to(_player.global_position)
-
 		for p in all_points:
 			var d := p.distance_to(_player.global_position)
 			if d > best_dist:
 				best_dist = d
 				best_point = p
 		_run_target = best_point
-		
 	else:
 		# sorteia um dos pontos seguros
 		var pool := points if not points.is_empty() else all_points

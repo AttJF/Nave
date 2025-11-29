@@ -1,5 +1,5 @@
 extends Node2D
-
+# teste 
 @export var inimigo_scene: PackedScene
 
 func _ready() -> void:
